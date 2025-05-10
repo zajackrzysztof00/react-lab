@@ -6,7 +6,8 @@ import 'milligram';
 
 export default function App() {
     const [email, setEmail] = useState('krzysztof@agh.edu.pl');
-    let message = '1';
+    const [authenticatedUserName, setauthenticatedUserName] = useState()
+    let message = '';
     function handleChange(event) {
         setEmail(event.target.value);}
     if (email.length < 10) {
@@ -17,21 +18,26 @@ export default function App() {
         message = "E-mail jest zbyt długi !!!";
     }
 
-    function loginClick(event) {
-        alert(email)
-    }
-
     return (
         <div>
             <h1>System do zapisów na zajęcia</h1>
-            <h2>Twój e-mail to {email}</h2>
-            <div>{message}</div>
-            <input type="text" onChange={handleChange}/>
-            <p>
-                <button type="loginButton" onClick={loginClick}>
-                    Zaloguj
-                </button>
-            </p>
+            {!authenticatedUserName && (<div>
+                    <h2>Twój e-mail to {email}</h2>
+                    <div>{message}</div>
+                    <input type="text" value={email} onChange={handleChange}/>
+                    <p>
+                        <button type="loginButton" onClick={() => {setauthenticatedUserName(email);
+                        }
+                        }>Wchodzę</button>
+                    </p>
+                </div>)}
+            {authenticatedUserName && (<div id='2'>
+                    <h2>Witaj {email}</h2>
+                    <button onClick={() => {setauthenticatedUserName();
+                    }
+                    }>Wyjdź</button>
+                </div>)
+            }
         </div>
   );
 }
