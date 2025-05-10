@@ -2,16 +2,21 @@ import logo from './logo.svg';
 import './App.css';
 import {useState} from "react";
 import LoginForm from "./LoginForm";
+import 'milligram';
 
-function App() {
+export default function App() {
     const [email, setEmail] = useState('krzysztof@agh.edu.pl');
-
+    let message = '1';
     function handleChange(event) {
-        setEmail(event.target.value);
+        setEmail(event.target.value);}
+    if (email.length < 10) {
+        message = "E-mail jest zbyt krótki !!!";
+    } else if (email.length >= 10 && email.length <= 30){
+        message = "Twój E-mail jest OK";
+    } else {
+        message = "E-mail jest zbyt długi !!!";
     }
-    function handleClick(event) {
-        setEmail(event.target.value);
-    }
+
     function loginClick(event) {
         alert(email)
     }
@@ -20,30 +25,13 @@ function App() {
         <div>
             <h1>System do zapisów na zajęcia</h1>
             <h2>Twój e-mail to {email}</h2>
-            <input type="text" value={email} onChange={handleChange}/>
+            <div>{message}</div>
+            <input type="text" onChange={handleChange}/>
             <p>
-                <button type="loginButton" onClick={loginClick}>Zaloguj</button>
+                <button type="loginButton" onClick={loginClick}>
+                    Zaloguj
+                </button>
             </p>
         </div>
-
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo"/>
-    //     <p>
-    //       {/*Edit <code>src/App.js</code> and save to reload.*/}
-        // </p>
-    //     {/*<a*/}
-    //     {/*  className="App-link"*/}
-    //     {/*  href="https://reactjs.org"*/}
-    //     {/*  target="_blank"*/}
-    //     {/*  rel="noopener noreferrer"*/}
-    //     {/*>*/}
-    //     {/*  Learn React*/}
-    //     {/*</a>*/}
-    // {/*  </header>*/}
-
-    // {/*</div>*/}
   );
 }
-
-export default App;
