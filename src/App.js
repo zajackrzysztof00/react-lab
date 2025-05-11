@@ -6,24 +6,21 @@ import UserPanel from "./UserPanel";
 import 'milligram';
 
 export default function App() {
-    const [email, setEmail] = useState('krzysztof@agh.edu.pl');
-    const [authenticatedUserName, setauthenticatedUserName] = useState()
-    function handleChange(event) {
-        setEmail(event.target.value);}
-    function onLogin(email) {
-        setauthenticatedUserName(email)
-    }
-    function onLogout(email) {
-        setauthenticatedUserName()
-    }
+    const [username, setusername] = useState()
 
+    function login(email) {
+        setusername(email)
+    }
+    function logout() {
+        setusername(null)
+    }
     return (
         <div>
             <h1>System do zapisów na zajęcia</h1>
             {
-                authenticatedUserName
-                    ? <UserPanel username={authenticatedUserName} onLogout = {email} />
-                    : <LoginForm onLogin={email} />
+                username
+                    ? <UserPanel username={username} onLogout = {() => logout()} />
+                    : <LoginForm onLogin={(username) => login(username)} />
             }
         </div>
   );
